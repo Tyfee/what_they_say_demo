@@ -1,0 +1,456 @@
+
+
+  <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
+        
+    html {
+      height: 100%;
+      cursor: url("img/cursor.png"), pointer;
+    }
+    
+    body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #202020, #111119);
+    }
+    
+    .rain {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+    
+    .rain.back-row {
+      display: none;
+      z-index: 1;
+      bottom: 60px;
+      opacity: 0.5;
+    }
+    
+    body.back-row-toggle .rain.back-row {
+      display: block;
+    }
+    
+    .drop {
+      position: absolute;
+      bottom: 100%;
+      width: 15px;
+      height: 120px;
+      pointer-events: none;
+      animation: drop 0.5s linear infinite;
+    }
+    
+    @keyframes drop {
+      0% {
+        transform: translateY(0vh);
+      }
+      75% {
+        transform: translateY(90vh);
+      }
+      100% {
+        transform: translateY(90vh);
+      }
+    }
+    
+    .stem {
+      width: 1px;
+      height: 60%;
+      margin-left: 7px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
+      animation: stem 0.5s linear infinite;
+    }
+    
+    @keyframes stem {
+      0% {
+        opacity: 1;
+      }
+      65% {
+        opacity: 1;
+      }
+      75% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    
+    .splat {
+      width: 15px;
+      height: 10px;
+      border-top: 2px dotted rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      opacity: 1;
+      transform: scale(0);
+      animation: splat 0.5s linear infinite;
+      display: none;
+    }
+    
+    body.splat-toggle .splat {
+      display: block;
+    }
+    
+    @keyframes splat {
+      0% {
+        opacity: 1;
+        transform: scale(0);
+      }
+      80% {
+        opacity: 1;
+        transform: scale(0);
+      }
+      90% {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.5);
+      }
+    }
+    
+    .toggles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+    }
+    
+    .toggle {
+      position: absolute;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      line-height: 51px;
+      box-sizing: border-box;
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 10px;
+      font-weight: bold;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .toggle:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+    }
+    
+    .toggle:active {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .toggle.active {
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .splat-toggle {
+      top: 20px;
+    }
+    
+    .back-row-toggle {
+      top: 90px;
+      line-height: 12px;
+      padding-top: 14px;
+    }
+    
+    .single-toggle {
+      top: 160px;
+    }
+    
+    body.single-toggle .drop {
+      display: none;
+    }
+    
+    body.single-toggle .drop:nth-child(10) {
+      display: block;
+    }
+    
+    body {
+     
+    zoom: 220%;
+    }
+    
+    .btn{
+        
+        font-family: Roboto Condensed;
+        font-weight: 800;
+        font-size: 18px;
+        color: #fff;
+        background-color: #000000;
+        padding: 10px 30px;
+        border: solid #ffffff 4px;
+        box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+        border-radius: 1px;
+        transition : 1000ms;
+        transform: translateY(0);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        cursor: pointer;
+        margin-top: 4%;
+        margin-left: 10%;
+        width: 100%;
+        height: 4%;
+    
+        }
+        
+        .btn:hover{
+        
+        transition : 1000ms;
+        padding: 10px 50px;
+        transform : translateY(-0px);
+        background-color: #ffffff !important; 
+        color: #000000 !important;
+        border: solid 4px #000000;
+        }
+        
+    .buttons {
+        position: absolute;
+      top: 0;
+      left: 25%;
+    
+      z-index: 3;
+    }
+      .slider {
+
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+      }
+.bigText {
+font-family: Roboto Condensed;
+       
+  color: #ffffff !important;
+    font-size: larger;
+    margin-top: 10%;
+
+}
+.flagcontainer {
+  margin-top: 6%;
+}
+.return {
+   position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      border-radius: 50%;
+      background-color: #00000000;
+      border: 2px solid white;
+      color: #ffffff;
+      width: 5.5%; 
+      height: 10%;
+}
+.return:hover{
+  background-color: white;
+      border: 2px solid black;
+      color: #000000;
+}
+    .flag:hover {
+      width: 20%;
+      height: 20%;
+    }
+    </style>
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <html>
+
+
+           
+    
+        
+        <body onload="changeLanguage();" id="bodyOdy"class="back-row-toggle splat-toggle">
+            <div class="rain front-row"></div>
+            <div class="rain back-row"></div>
+            <button onClick="returnToMenu()" class="return"><</button> 
+            <center>
+              <a id="languageText" class="bigText">LANGUAGE</a>
+                <div class="buttons">
+                  <p>  <div class="flagcontainer">
+                    <img onClick="changeEN()" class="flag" src="img/flags/en.png"/>
+                    <img onClick="changePTBR()" class="flag" src="img/flags/pt-br.png"/>
+                    <img onClick="changeFR()" class="flag" src="img/flags/fr.png"/>
+                    <img onClick="changeJA()" class="flag" src="img/flags/jp.png"/>
+                  </div>
+<a id="musicText" class="bigText">MUSIC VOLUME</a>
+
+                <p>  <div class="slidecontainer">
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                  </div>
+                  <p<a>                                </a></p>
+                  <a id="soundText"  class="bigText">SOUND EFFECTS VOLUME</a>
+                  <p>  <div class="slidecontainer">
+                    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                  </div>
+                  <a id="controllerText"  class="bigText">CONTROLLER</a>
+                    </p></div>
+            </center>
+          </body>
+        </html>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <script src="jquery-3.6.3.min.js">
+    
+    
+    
+    
+    
+      </script>
+    <script>   
+
+
+function changeEN(){
+  const lang = localStorage.setItem("lang", "EN");
+  languageText.innerHTML = "LANGUAGE";
+musicText.innerHTML = "MUSIC VOLUME";
+soundText.innerHTML = "SOUND EFFECTS VOLUME";
+controllerText.innerHTML = "CONTROLLER";
+}
+function changePTBR(){
+  const lang = localStorage.setItem("lang", "PTBR");
+  languageText.innerHTML = "IDIOMA";
+musicText.innerHTML = "VOLUME DA MÚSICA";
+soundText.innerHTML = "VOLUME DOS EFEITOS SONORSOS";
+controllerText.innerHTML = "CONTROLES";
+}
+function changeFR(){
+  const lang = localStorage.setItem("lang", "FR");
+  languageText.innerHTML = "LANGUE";
+musicText.innerHTML = "MUSIQUE";
+soundText.innerHTML = "SFX";
+controllerText.innerHTML = "CONTROLLES";
+}
+function changeJA(){
+  const lang = localStorage.setItem("lang", "JA");
+  languageText.innerHTML = "言語";
+musicText.innerHTML = "音楽音量";
+soundText.innerHTML = "SFX 音量";
+controllerText.innerHTML = "コントロール";
+}
+
+function returnToMenu(){
+  window.open("index.html","_self")
+}
+        var makeItRain = function() {
+      //clear out everything
+      $('.rain').empty();
+    
+      var increment = 0;
+      var drops = "";
+      var backDrops = "";
+    
+      while (increment < 100) {
+        //couple random numbers to use for various randomizations
+        //random number between 98 and 1
+        var randoHundo = (Math.floor(Math.random() * (98 - 1 + 1) + 1));
+        //random number between 5 and 2
+        var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+        //increment
+        increment += randoFiver;
+        //add in a new raindrop with various randomizations to certain CSS properties
+        drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+        backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+      }
+    
+      $('.rain.front-row').append(drops);
+      $('.rain.back-row').append(backDrops);
+    }
+    
+    $('.splat-toggle.toggle').on('click', function() {
+      $('body').toggleClass('splat-toggle');
+      $('.splat-toggle.toggle').toggleClass('active');
+      makeItRain();
+    });
+    
+    $('.back-row-toggle.toggle').on('click', function() {
+      $('body').toggleClass('back-row-toggle');
+      $('.back-row-toggle.toggle').toggleClass('active');
+      makeItRain();
+    });
+    
+    $('.single-toggle.toggle').on('click', function() {
+      $('body').toggleClass('single-toggle');
+      $('.single-toggle.toggle').toggleClass('active');
+      makeItRain();
+    });
+    
+    makeItRain();
+    
+    
+    function startFromZero(){
+    
+        window.open("whattheysay.html","_self")
+    }
+
+
+    function changeLanguage(){
+
+     
+  const lang = localStorage.getItem("lang");
+
+var languageText = document.getElementById("languageText");
+var musicText = document.getElementById("musicText");
+var soundText = document.getElementById("soundText");
+var controllerText = document.getElementById("controllerText");
+
+
+   if(lang == "EN"){
+languageText.innerHTML = "LANGUAGE";
+musicText.innerHTML = "MUSIC VOLUME";
+soundText.innerHTML = "SOUND EFFECTS VOLUME";
+controllerText.innerHTML = "CONTROLLER";
+   }
+   if(lang == "PTBR"){
+    languageText.innerHTML = "IDIOMA";
+musicText.innerHTML = "VOLUME DA MÚSICA";
+soundText.innerHTML = "VOLUME DOS EFEITOS SONORSOS";
+controllerText.innerHTML = "CONTROLES";
+
+}
+if(lang == "FR"){
+  languageText.innerHTML = "LANGUE";
+musicText.innerHTML = "MUSIQUE";
+soundText.innerHTML = "SFX";
+controllerText.innerHTML = "CONTROLLES";
+
+}
+if(lang == "JA"){
+  languageText.innerHTML = "言語";
+musicText.innerHTML = "音楽音量";
+soundText.innerHTML = "SFX 音量";
+controllerText.innerHTML = "コントロール";
+
+}
+    }
+
+
+
+
+
+</script>

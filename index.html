@@ -1,0 +1,439 @@
+
+
+  <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
+    
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #202020, #111119);
+}
+
+.rain {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.rain.back-row {
+  display: none;
+  z-index: 1;
+  bottom: 60px;
+  opacity: 0.5;
+}
+
+body.back-row-toggle .rain.back-row {
+  display: block;
+}
+
+.drop {
+  position: absolute;
+  bottom: 100%;
+  width: 15px;
+  height: 120px;
+  pointer-events: none;
+  animation: drop 0.5s linear infinite;
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(0vh);
+  }
+  75% {
+    transform: translateY(90vh);
+  }
+  100% {
+    transform: translateY(90vh);
+  }
+}
+
+.stem {
+  width: 1px;
+  height: 60%;
+  margin-left: 7px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
+  animation: stem 0.5s linear infinite;
+}
+
+@keyframes stem {
+  0% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.splat {
+  width: 15px;
+  height: 10px;
+  border-top: 2px dotted rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  opacity: 1;
+  transform: scale(0);
+  animation: splat 0.5s linear infinite;
+  display: none;
+}
+
+body.splat-toggle .splat {
+  display: block;
+}
+
+@keyframes splat {
+  0% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(0);
+  }
+  90% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+.toggles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.toggle {
+  position: absolute;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  line-height: 51px;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.toggle:active {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.toggle.active {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.splat-toggle {
+  top: 20px;
+}
+
+.back-row-toggle {
+  top: 90px;
+  line-height: 12px;
+  padding-top: 14px;
+}
+
+.single-toggle {
+  top: 160px;
+}
+
+body.single-toggle .drop {
+  display: none;
+}
+
+body.single-toggle .drop:nth-child(10) {
+  display: block;
+}
+
+body {
+  cursor: url("img/cursor.png"), pointer;
+zoom: 220%;
+}
+@font-face {
+font-family: "Avenixel";
+src: url("fonts/MatrixSans-Regular.ttf");
+}
+@font-face {
+font-family: "JFDot";
+src: url("fonts/JF-Dot-K14.ttf");
+}
+.btn{
+    
+    font-family: Avenixel;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fff;
+    background-color: #000000;
+    padding: 10px 30px;
+    border: solid #ffffff 4px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 1px;
+    transition : 1000ms;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 4%;
+    margin-left: 50%;
+    width: 100%;
+    height: 4%;
+    cursor: url("img/cursor.png"), pointer;
+
+    }
+    
+    .btn:hover{
+    
+    transition : 1000ms;
+    padding: 10px 50px;
+    transform : translateY(-0px);
+    background-color: #ffffff !important; 
+    color: #000000 !important;
+    border: solid 4px #000000;
+    }
+    
+.buttons {
+    position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 3;
+}
+.mainLogo {
+   position: absolute;
+  top: 0;
+  left: 40%;
+width:60%;
+
+height: 90%;
+  z-index: 3;
+}
+.fadeInDiv{
+  position: absolute;
+    z-index: 4;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    animation: fadeOut ease 8s;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    z-index: 4;
+  }
+  100% {
+    opacity: 0;
+    z-index: 3;
+   
+  }
+}
+</style>
+
+<audio id="audioContainer">
+=
+  </audio>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html>
+      <div class="fadeInDiv"> </div>
+    <script src="jquery-3.6.3.min.js"></script>
+    <script src="howler.js"></script>
+    <body onload="change();" onclick="playAudio()"class="back-row-toggle splat-toggle">
+
+      <img class="mainLogo" src="img/logo_01.png"/>
+        <div class="rain front-row"></div>
+        <div class="rain back-row"></div>
+        <center>
+            <div class="buttons">
+            <p>   <button id="btnStart" onmouseover="hoverSound()" onClick="startFromZero()" class="btn">START GAME</button>
+            <p>       <button  id="btnLoad" onmouseover="hoverSound()" class="btn">LOAD GAME</button>
+<p>         <button id="btnSettings" onmouseover="hoverSound()" onClick="openSettings()" class="btn">SETTINGS</button>
+    <p>         <button onmouseover="hoverSound()" id="btnCredits"class="btn">CREDITS</button>
+      <p>         <button  onmouseover="hoverSound()" id="btnExtras" class="btn">EXTRAS</button>
+            <p>     <button onmouseover="hoverSound()" id="btnExit" class="btn">EXIT</button>
+                </p></div>
+        </center>
+      </body>
+   
+    </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+const lang = localStorage.getItem("lang");
+
+
+
+  var sound = new Howl({
+  src: ['notenoughstars.mp3'],
+  volume: 0.3
+});
+
+
+
+
+function change(){
+ 
+  const lang = localStorage.getItem("lang");
+
+var btnStart = document.getElementById("btnStart");
+var btnLoad = document.getElementById("btnLoad");
+var btnSettings = document.getElementById("btnSettings");
+var btnCredits = document.getElementById("btnCredits");
+var btnExtras = document.getElementById("btnExtras");
+var btnExit = document.getElementById("btnExit");
+var musicStarted = false;
+
+   if(lang == "EN"){
+
+
+btnStart.innerHTML = "START GAME";
+btnLoad.innerHTML = "LOAD GAME";
+btnSettings.innerHTML = "SETTINGS";
+btnCredits.innerHTML = "CREDITS";
+btnExtras.innerHTML = "EXTRAS";
+btnExit.innerHTML = "EXIT";
+   }
+   if(lang == "PTBR"){
+    btnStart.innerHTML = "COMEÇAR";
+btnLoad.innerHTML = "CONTINUAR";
+btnSettings.innerHTML = "CONFIGURAÇÕES";
+btnCredits.innerHTML = "CRÉDITOS";
+btnExtras.innerHTML = "EXTRAS";
+btnExit.innerHTML = "SAIR";
+}
+if(lang == "FR"){
+  btnStart.innerHTML = "COMMENCÉR";
+btnLoad.innerHTML = "CONTINUER";
+btnSettings.innerHTML = "PARAMÈTRES";
+btnCredits.innerHTML = "CRÉDITES";
+btnExtras.innerHTML = "EXTRAS";
+btnExit.innerHTML = "SORTIR";
+}
+if(lang == "JA"){
+  btnStart.innerHTML = "初めから";
+btnLoad.innerHTML = "ロード";
+btnSettings.innerHTML = "設定";
+btnCredits.innerHTML = "クレジート";
+btnExtras.innerHTML = "エクストラ";
+btnExit.innerHTML = "出る";
+
+btnStart.style.fontFamily = "JFDot";
+btnLoad.style.fontFamily = "JFDot";
+btnSettings.style.fontFamily = "JFDot";
+btnCredits.style.fontFamily = "JFDot";
+btnExtras.style.fontFamily = "JFDot";
+btnExit.style.fontFamily = "JFDot";
+}
+
+
+}
+
+    var makeItRain = function() {
+  //clear out everything
+  $('.rain').empty();
+
+  var increment = 0;
+  var drops = "";
+  var backDrops = "";
+
+  while (increment < 100) {
+    //couple random numbers to use for various randomizations
+    //random number between 98 and 1
+    var randoHundo = (Math.floor(Math.random() * (98 - 1 + 1) + 1));
+    //random number between 5 and 2
+    var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+    //increment
+    increment += randoFiver;
+    //add in a new raindrop with various randomizations to certain CSS properties
+    drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+    backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+  }
+
+  $('.rain.front-row').append(drops);
+  $('.rain.back-row').append(backDrops);
+}
+
+$('.splat-toggle.toggle').on('click', function() {
+  $('body').toggleClass('splat-toggle');
+  $('.splat-toggle.toggle').toggleClass('active');
+  makeItRain();
+});
+
+$('.back-row-toggle.toggle').on('click', function() {
+  $('body').toggleClass('back-row-toggle');
+  $('.back-row-toggle.toggle').toggleClass('active');
+  makeItRain();
+});
+
+$('.single-toggle.toggle').on('click', function() {
+  $('body').toggleClass('single-toggle');
+  $('.single-toggle.toggle').toggleClass('active');
+  makeItRain();
+});
+
+makeItRain();
+
+
+function startFromZero(){
+
+  var click = new Howl({
+  src: ['sounds/click.mp3'],
+  volume: 10.0
+});
+
+  click.play();
+    window.open("whattheysay.html","_self")
+}
+function openSettings(){
+
+window.open("settings.html","_self")
+}
+</script>

@@ -1,0 +1,985 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="jquery-3.6.3.min.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v$npm_package_version/dist/aframe-physics-system.min.js"></script>
+     <script src="howler.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  </head>
+
+
+
+  <body onload="checkFor();" onclick="playAudio()">
+    <div class="fadeInDiv"></div>
+    <div class="topThingy"></div>
+    <div class="bottomThingy"></div>
+    <a id="coordinates" class="coordinates"></a>
+
+    <div id="courageContainer"class="courageContainer">
+    
+     <img id="courageLevel"src="img/assets/bar.png">
+   
+    </div>
+    <div id="inputDiv"class="inputDiv">
+ 
+    <img id="buttonSrc" class="buttonSrc" src="img/e-key.png">
+
+    </div>
+
+    <div id="dialogue"class="dialogue">
+    
+      <a id="dialogueText" class="dialogueText"></a>
+   
+    </div>
+    <div id="dialogueImage"class="dialogueImage">
+    
+      <img id="dialogueSrc" src="img/assets/god.png"class="dialogueSrc"></a>
+      <div class="nameBox"><center><a id="nameText" class="nameText"></a></center></div>
+    </div>
+    <div id="uiRight" class="uiRight">
+<button  onclick="showAlbum()" class="uiRightBtn">Album</button>
+<p><button onclick="showBackpack()" class="uiRightBtn">Backpack</button></p>
+<p><button   onclick="showMap();" class="uiRightBtn">Map</button></p>
+      </div>
+
+<!-- modals for menus and stuff-->
+
+<div id="albumBtn" class="modal">
+ <center>
+  <h1>Album</h1>
+
+  <p><div class="grid">
+<div class="albumRowOne">
+<img class="albumEntry" id="pic_01" src="img/assets/no.png"> <img id="pic_02" class="albumEntry" src="img/assets/no.png"> <img id="pic_03" class="albumEntry" src="img/assets/no.png">
+
+</div>
+<p><div class="albumRowOne">
+  <img class="albumEntry" src="img/assets/no.png"> <img class="albumEntry" src="img/assets/no.png"> <img class="albumEntry"src="img/assets/no.png">
+</div>
+  <p><div class="albumRowOne">
+    <img class="albumEntry" src="img/assets/no.png"> <img class="albumEntry" src="img/assets/no.png"> <img class="albumEntry" src="img/assets/no.png">
+
+  </div>
+  </div></p>
+ </center>
+ 
+  </div>
+
+  <div  id="backpackBtn"class="modal">
+    <center>
+      <h1>Backpack</h1>
+     </center>
+ 
+    </div>
+
+    <div id="mapBtn"class="modal">
+ 
+      <center>
+        <h1>Map</h1>
+       </center>
+      </div>
+
+      <div id="exitBtn"class="modal">
+        <h1>PAUSE</h1>
+        <center>
+ 
+          <p><button class="Btn" onCLick="quickSettings();" id="quickSettings">SETTINGS</button></p>
+          <p><button class="Btn" onCLick="quickSave();" id="quickSave">SAVE PROGRESS</button></p>
+          <p><button class="Btn" onCLick="quickLoad();"id="quickLoad">LOAD PROGRESS</button></p>
+          <p><button class="Btn" onCLick="returnMenu();" id="returnMenu">RETURN TO MAIN MENU</button></p>
+         </center>
+        </div>
+        <div id="quickSaveBtn"class="modal">
+          <center>
+   
+          <h1>Quick Save</h1>
+    <div class="saveSlot">
+<div><img class="slotImg" src="img/assets/no.png"></div>
+
+<div><a>Save Slot 1 - </a>><a>17/02/2023</a></div>
+
+    </div>
+    <div class="saveSlot"></div>
+    <div class="saveSlot"></div>
+    <div class="saveSlot"></div>
+         
+           </center>
+          </div>
+
+
+    <a-scene light="defaultLightsEnabled: false" fog="type: linear; color: #AAA" vr-mode-ui="enabled: false">
+    
+  
+        <a-entity id="rig" position="-14 9 5">
+            <a-entity id="camera" camera look-controls></a-entity>
+          </a-entity>
+          <a-assets>
+          <a-asset-item id="Cabin" src="https://cdn.glitch.global/2f92b13e-90f2-4258-9464-269cc7d2374f/WoodenCabinBlender2.gltf?v=1655445075415"></a-asset-item>
+          <a-asset-item id="bush" src="https://raw.githubusercontent.com/Tyfee/3d/main/bush/scene.gltf"></a-asset-item>
+          <a-asset-item id="mountain" src="https://raw.githubusercontent.com/Tyfee/3d/main/mountain/scene.gltf"></a-asset-item>
+          <a-asset-item id="player2" src="https://raw.githubusercontent.com/Tyfee/3d/main/scene.glb"></a-asset-item>
+          <a-asset-item id="lamp" src="https://raw.githubusercontent.com/Tyfee/3d/main/models/street_light_lamp.glb"></a-asset-item>
+          <a-asset-item id="tree" src="https://raw.githubusercontent.com/Tyfee/3d/main/tree/low_poly_tree_wind.glb"></a-asset-item>
+          <a-asset-item id="water" src="https://raw.githubusercontent.com/Tyfee/3d/main/water_animation.glb"></a-asset-item>
+          <a-asset-item id="fence" src="https://raw.githubusercontent.com/Tyfee/3d/main/wooden_fence.glb"></a-asset-item>
+          
+          <a-asset-item id="wolf" src="https://raw.githubusercontent.com/Tyfee/3d/main/models/wolf.glb"></a-asset-item>
+
+
+        </a-assets>
+
+      <a-plane  material="side: double; src: img/assets/giphy.gif; shader:gif;" position="0 0 -4" rotation="-90 0 0" width="350" height="80"></a-plane>
+
+      <a-plane class="street" color="#F5F5DC" position="0 0.7 -4" rotation="-90 0 0" width="230" height="5"></a-plane>
+      <a-plane class="street" color="#F5F5DC" position="115 0.7 -4" rotation="-90 0 0" width="5" height="300"></a-plane>
+    
+      <a-plane  material="src: img/assets/grass.jpg"color="#7BC8A4" position="40 0 -4" rotation="-90 0 0" width="350" height="80" color="#7BC8A4"></a-plane>
+      <a-plane  material="src: img/assets/grass.jpg" position="120 0 -4" rotation="-90 0 0" width="320" height="500" color="#7BC8A4"></a-plane>
+ 
+     ></a-circle>
+  
+    
+      <a-entity rotation="0 0 0" position="-120 0 -20" gltf-model="#fence" scale ="0.5 0.3 1.3" ></a-entity>
+    
+      <a-entity rotation="0 0 0" position="-120 0 15" gltf-model="#fence" scale ="0.5 0.3 1.3" ></a-entity>
+      <a-plane id="text_01" material="side: double; color: black;" animation="property: rotation; to: 0 360 0; loop: true; dur: 8000" position="192 0 -60" rotation="0 0 0" width="3" height="8"></a-plane>
+    
+      <a-plane id="pic_one" material="side: double" src="img/assets/01.png" animation="property: rotation; to: 0 360 0; loop: true; dur: 8000" position="-52 0 -10" rotation="0 0 0" width="3" height="6"></a-plane>
+      <a-plane id="sign"  material="side: double" src="img/assets/sign.png" position="60 0 -150" rotation="0 0 0" width="50" height="50"></a-plane>
+ 
+      <a-entity position="-15 -1 -20" movement-controls="constrainToNavMesh: true" shadow="cast: true" gltf-model="#Cabin" scale ="0.2 0.2 0.2" ></a-entity>
+
+ <!-- bushes-->
+ <a-entity position="8 0 -30" gltf-model="#bush" scale ="0.01 0.01 0.01" ></a-entity>
+ <a-entity rotation="0 90 0" position="40 0 -20" gltf-model="#bush" scale ="0.01 0.01 0.01" ></a-entity>
+ <a-entity position="-32 0 -27" gltf-model="#bush" scale ="0.01 0.01 0.01" ></a-entity>
+ <a-entity rotation="0 90 0" position="-61 -1 -18" gltf-model="#bush" scale ="0.01 0.01 0.01" ></a-entity>
+
+ <!-- lamps-->
+ <a-entity  position="20 -1 1" shadow="receive: true" gltf-model="#lamp" width="" scale ="2.0 2.0 2.0" ></a-entity>
+ <a-entity light= "type: directional; color: yellow; intensity: 0.3" position="20 3 1"></a-entity>
+ <a-entity position="90 -1 1" gltf-model="#lamp" width="" scale ="2.0 2.0 2.0" ></a-entity>
+ <a-entity light= "type: directional; color: yellow; intensity: 0.3" position="90 3 1"></a-entity>
+  <!-- trees-->
+ <a-entity position="4 -1 5" gltf-model="#tree" width="" scale ="0.060 0.080 0.01" animation-mixer></a-entity>
+ <a-entity position="60 -1 -24" gltf-model="#tree" width="" scale ="0.060 0.080 0.01" animation-mixer></a-entity>
+ <a-entity position="90 -1 -42" gltf-model="#tree" width="" scale ="0.060 0.080 0.01" animation-mixer></a-entity>
+ <a-entity position="90 -1 -60" gltf-model="#tree" width="" scale ="0.060 0.080 0.01" animation-mixer></a-entity>
+ <a-entity position="130 -1 -56" gltf-model="#tree" width="" scale ="0.060 0.080 0.01" animation-mixer></a-entity>
+ <a-entity position="160 -1 -35" gltf-model="#tree" width="" scale ="0.060 0.080 0.01" animation-mixer></a-entity>
+ <a-entity position="160 -1 -75" gltf-model="#tree" width="" scale ="0.060 0.080 0.01" animation-mixer></a-entity>
+ <a-entity position="140 -1 -20" gltf-model="#tree" width="" scale ="0.060 0.080 0.01" animation-mixer></a-entity>
+ <a-entity position="110 -1 -75" gltf-model="#tree" width="" scale ="0.060 0.080 0.01" animation-mixer></a-entity>
+ <a-entity position="110 -1 -72" gltf-model="#tree" width="" scale ="0.060 0.080 0.01" animation-mixer></a-entity>
+
+ <a-entity static-body id="front_mountain" position="5 0 -50"  gltf-model="#mountain" width="500" rotation="360 0 0" scale ="5.0 7.0 1.0" ></a-entity>
+ <a-entity static-body id="front_mountain" position="-38 0 -25" gltf-model="#mountain" width="500" rotation="0 0 90" scale ="12.0 10.0 1.0"  ></a-entity>
+ <a-entity static-body id="front_mountain" position="300 -20 -25" gltf-model="#mountain" width="200" rotation="0 360 0" scale ="7.0 5.0 5.0"  ></a-entity>
+
+ <a-entity light= "type: directional; color: #FFF; intensity: 0.4" position="-0.5 1 1"></a-entity>
+  <a-entity dynamic-body movement-controls="constrainToNavMesh: true" id="playerModel" rotation="0 90 0" position="-16 1 -10"  gltf-model="#player2"  scale ="2.5 2.5 2.5"></a-entity>
+
+ <a-entity id="wolfChar" rotation="0 0 0" position="-15 0 -15"  gltf-model="#wolf" ></a-entity>
+
+
+      <a-sky color="#dba070"></a-sky>
+    </a-scene>
+  </body>
+</html>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
+
+@font-face {
+font-family: "Avenixel";
+src: url("fonts/MatrixSans-Regular.ttf");
+}
+@font-face {
+font-family: "JFDot";
+src: url("fonts/JF-Dot-K14.ttf");
+}
+
+
+h1{
+  font-size: xxx-large;
+    color: white;
+
+    font-family: 'Avenixel';
+}
+
+.quickSaveBtn {
+  display: inline-block;
+}
+.saveSlot{
+  object-fit: cover;
+  width: 20%;
+  height: 40vh;
+  border: 3px solid white;
+  margin-top: 4%;
+}
+.coordinates {
+  color: yellow;
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  font-size: xx-large;
+}
+.topThingy {
+  z-index: 2;
+  position: absolute;
+background-color: black;
+top: 0;
+width: 100%;
+height: 10%;
+}
+
+.bottomThingy{
+  background-color: black;
+  z-index: 2;
+  position: absolute;
+  width: 100%;
+height: 10%;
+bottom: 0;
+}
+html{
+  cursor: url("img/cursor.png"), pointer;
+
+}
+
+.inputDiv{
+position: absolute;
+z-index: 3;
+width: 20%;
+height: 8vw;
+line-height: 8vw;
+vertical-align: center;
+left: 45vw;
+top: 80vh;
+}
+
+.buttonSrc{
+  width: 40%;
+height: 100%;
+border: 6px solid white;
+visibility: hidden;
+}
+
+
+.fadeInDiv{
+  position: absolute;
+    z-index: 3;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    animation: fadeOut ease 7s;
+  animation-fill-mode: forwards;
+
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.modal{
+  position: absolute;
+  z-index: 3;
+  top: 10;
+  left: 10;
+  width: 94vw;
+  height: 90vh;
+  border: 5px solid white;
+  background-color: rgba(0, 0, 0, 0.514);
+  visibility: hidden;
+}
+  .dialogue {
+    position: absolute;
+    z-index: 3;
+    opacity: 0.9;
+    width: 80vw;
+    height: 27vh;
+    background-color: gray;
+    border-radius: 0%;
+    bottom: 15;
+    right: 15;
+visibility: hidden;
+  }
+
+  .dialogueText{
+    font-size: xxx-large;
+    color: white;
+   
+    font-weight: 800;
+    opacity: 1;
+    font-family: 'Avenixel';
+  }
+a{
+  font-size: xx-large;
+    color: white;
+  
+    opacity: 1;
+    font-family: 'Avenixel';
+}
+  .dialogueImage {
+    position: absolute;
+    z-index: 3;
+    opacity: 0.8;
+    width: 16vw;
+    height: 26vh;
+    background-color: rgba(128, 128, 128, 0);
+    border: 4px solid rgb(255, 255, 255);
+
+    bottom: 15;
+    left: 15;
+    visibility: hidden;
+  }
+  .dialogueSrc {
+    z-index: 2;
+    opacity: 1;
+    width: 100%;
+    height: 100%;
+
+  }
+.nameBox{
+  position: absolute;
+  z-index: 3;
+  background-color: gray;
+  width: 100%;
+  height: 20%;
+  bottom: 0;
+  opacity: 0.9;
+}
+.nameText{
+  font-size: xxx-large;
+  color: white;
+  font-family: 'Avenixel';
+}
+
+
+
+  .uiRight {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    top: 0;
+    width: 5%;
+    height: 50%;
+    cursor: url("img/cursor.png"), pointer;
+  }
+
+  .uiRightBtn{
+    cursor: url("img/cursor.png"), pointer;
+    height: 17%;
+    width: 100%;
+    border: 3px solid white;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    right: 0;
+    border-radius: 100%;
+    cursor: url("img/cursor.png"), pointer;
+
+  }
+  .uiRightBtn:hover{
+ 
+    border: 3px solid black;
+    background-color: rgb(255, 255, 255);
+    color: black;
+   
+ 
+ 
+  }
+.courageContainer {
+  position: absolute;
+  z-index: 3;
+  width: 40%;
+  height: 3%;
+  border: 2px solid white;
+  top: 50;
+  left: 2;
+}
+#courageLevel {
+  object-fit: cover;
+  width: 50%;
+  height: 100%;
+}
+.albumRowOne{
+  width: 90%;
+  height: 30%;
+}
+.albumEntry {
+  width: 20%;
+  height: 100%;
+}
+.albumEntry:hover {
+ border:5px solid white;
+}
+.btn{
+    
+    font-family: Roboto Condensed;
+    font-weight: 800;
+    font-size: 18px;
+    color: #fff;
+    background-color: #000000;
+    padding: 10px 30px;
+    border: solid #ffffff 4px;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 1px;
+    transition : 1000ms;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 2%;
+    width: 40%;
+    height: 14%;
+    cursor: url("img/cursor.png"), pointer;
+
+    }
+    
+    .btn:hover{
+    
+    transition : 1000ms;
+    padding: 10px 50px;
+    transform : translateY(-0px);
+    background-color: #ffffff !important; 
+    color: #000000 !important;
+    border: solid 4px #000000;
+    }
+    .slotImg {
+      object-fit: cover;
+   width: 100%;
+   height: 80%;
+    }
+</style>
+<script>
+
+  // 6Gx9fNLik7X.Gea
+
+  const lang = localStorage.getItem("lang");
+
+  var dialogueText = document.getElementById("dialogueText");
+
+
+  var currentDialogue = 0;
+var canMove = true;
+
+var canMoveLeft = true;
+var canMoveDown = true;
+
+  var canEnterCabin = false;
+ var canCheckLamp = false;
+ var canCheckFence = false;
+var albumShowing = false;
+var musicStarted = false;
+var backpackShowing = false;
+var mapShowing = false;
+var menuOpen = false;
+var hasPic01 = false;
+var firstGone = false;
+
+var txt = "";
+var txt2 = "";
+var txt2a = "";
+var txt3 = "";
+
+var coordinates = document.getElementById("coordinates");
+
+var i = 0;
+var i2 = 0;
+
+
+var speed = 10;
+
+function checkFor(){
+
+
+  const lang = localStorage.getItem("lang");
+  if(lang=="EN"){
+
+    document.getElementById("nameText").innerHTML = "G O D";
+  document.getElementById("nameText").style.fontFamily = "Avenixel";
+   txt = 'By the way, this is a dialogue test, to see if i can succesfully use a typewriter effect on displaying my text values! If youre seeing this, thats cool i guess!!!'; 
+txt2 = 'This is your beloved summer home! How many memories did you make here before even being aware of yourself?'; 
+txt2a = 'Would you like to enter?'; 
+txt3 = 'A street lamp... Does that mean a lot of people come here often? Is that a clue to something? '; 
+txt4 = 'Looks like a drawing of a... sad frog?. You might wanna take a better look at it in your ALBUM just to make sure! haha'; 
+txt5 = "I don't think we can really cross this fence... But who wants to see a boring waterfall either way!"; 
+
+  }
+if(lang=="JA"){
+
+  document.getElementById("dialogueText").style.fontFamily = "JFDot";
+  document.getElementById("nameText").innerHTML = "神様";
+  document.getElementById("nameText").style.fontFamily = "JFDot";
+  txt = 'By the way, this is a dialogue test, to see if i can succesfully use a typewriter effect on displaying my text values! If youre seeing this, thats cool i guess!!!'; 
+ txt2 = 'これってあなたの大好の夏家だ。自分は自分ことを気ずつくまえに、いくつの思い出をここで作くったか'; 
+ txt2a = '入りたいですか'; 
+
+ txt3 = 'ストリートラソプか こんな埸所に来る人って多いかな 手がかりになるかなぁぁぁぁ';
+ txt4 = '寂しいカエルの描きだそう。。。確認するようにアルバムでちゃんと見たほうがいいよ'; 
+ txt5 = "このフェンスには飛び越えないそうだ。。。つまらない滝なんて見たくないけど"; 
+}
+if(lang=="PTBR"){
+  document.getElementById("nameText").innerHTML = "G O D";
+  document.getElementById("nameText").style.fontFamily = "Avenixel";
+  txt = 'By the way, this is a dialogue test, to see if i can succesfully use a typewriter effect on displaying my text values! If youre seeing this, thats cool i guess!!!'; 
+ txt2 = 'Essa é a sua amada casa de verão! Quantas memórias você fez aqui antes mesmo de saber que você existia?'; 
+ txt2a = 'Você gostaria de entrar?'; 
+ txt3 = 'Um poste de luz... Isso quer dizer que muita gente vem aqui? Seria isso uma pista?';
+ txt4 = 'Parece um desenho de um... sapo triste?. Talvez você queira dar uma olhada melhor no seu ÁLBUM, só pra ter certeza! haha'; 
+ txt5 = 'Eu não acho que nós conseguiriamos pular essa ponte... Mas quem iria querer ver uma cachoeira chata de qualquer maneira!';
+}
+}
+
+
+document.onkeydown=function(e){
+
+var currentX = document.getElementById("playerModel").getAttribute("position").x;
+var currentY = document.getElementById("playerModel").getAttribute("position").y;
+var currentZ = document.getElementById("playerModel").getAttribute("position").z;
+
+
+if (currentX.valueOf() >= -18 && currentX.valueOf() <= -14) {
+
+
+document.getElementById("buttonSrc").style.visibility = "visible";
+canEnterCabin = true;
+
+}else if (currentX.valueOf() >= 89 && currentX.valueOf() <= 95) {
+  document.getElementById("buttonSrc").style.visibility = "visible";
+ canCheckLamp = true;
+}else if (currentX.valueOf() >= 18 && currentX.valueOf() <= 23) {
+  document.getElementById("buttonSrc").style.visibility = "visible";
+ canCheckLamp = true;
+}else if (currentX.valueOf() >= -119 && currentX.valueOf() <= -115) {
+  document.getElementById("buttonSrc").style.visibility = "visible";
+ canCheckFence = true;
+}
+
+else if (currentX.valueOf() >= -55 && currentX.valueOf() <= -47) {
+
+  if(hasPic01 == false){
+  document.getElementById("buttonSrc").style.visibility = "visible";
+ canPickupPic01 = true;
+  }else{
+    document.getElementById("buttonSrc").style.visibility = "hidden";
+ canPickupPic01 = false;
+  }
+
+}
+
+else{
+  document.getElementById("buttonSrc").style.visibility = "hidden";
+canEnterCabin = false;
+canCheckLamp = false;
+canPickupPic01 = false;
+canCheckFence = false;
+}
+
+
+
+if (currentZ.valueOf() >= 2) {
+
+canMoveDown = false;
+canMoveLeft = true;
+}else if (currentX.valueOf() <= -118) {
+
+canMoveLeft = false;
+canMoveDown = true;
+}
+else{
+  canMoveLeft = true;
+  canMoveDown = true;
+}
+}
+
+
+
+
+
+
+function showMap(){
+mapShowing = !mapShowing;
+
+if(mapShowing == true){
+  document.getElementById("albumBtn").style.visibility = "hidden";
+  document.getElementById("backpackBtn").style.visibility = "hidden";
+  document.getElementById("mapBtn").style.visibility = "visible";
+
+}else{
+  document.getElementById("mapBtn").style.visibility = "hidden";
+  document.getElementById("backpackBtn").style.visibility = "hidden";
+  document.getElementById("mapBtn").style.visibility = "hidden";
+}
+}
+function showBackpack(){
+  backpackShowing = !backpackShowing;
+
+  document.getElementById("albumBtn").style.visibility = "hidden";
+  document.getElementById("backpackBtn").style.visibility = "visible";
+  document.getElementById("mapBtn").style.visibility = "hidden";
+  if(backpackShowing == true){
+}else{
+
+  document.getElementById("albumBtn").style.visibility = "hidden";
+  document.getElementById("backpackBtn").style.visibility = "hidden";
+  document.getElementById("mapBtn").style.visibility = "hidden";
+}
+
+
+}
+function showAlbum(){
+  albumShowing = !albumShowing;
+
+
+
+    
+  if(albumShowing == true){
+  document.getElementById("albumBtn").style.visibility = "visible";
+  document.getElementById("backpackBtn").style.visibility = "hidden";
+  document.getElementById("mapBtn").style.visibility = "hidden";
+
+}else{
+  document.getElementById("albumBtn").style.visibility = "hidden";
+  document.getElementById("backpackBtn").style.visibility = "hidden";
+  document.getElementById("mapBtn").style.visibility = "hidden";
+}
+}
+
+
+
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("dialogueText").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+
+function typeWriter2() {
+  if (i2 < txt2.length) {
+    document.getElementById("dialogueText").innerHTML += txt2.charAt(i2);
+    i2++;
+    setTimeout(typeWriter2, speed);
+  
+  }
+}
+function typeWriter2a() {
+  if (i2 < txt2a.length) {
+    document.getElementById("dialogueText").innerHTML += txt2a.charAt(i2);
+    i2++;
+    setTimeout(typeWriter2a, speed);
+  }
+}
+
+function typeWriter3() {
+  if (i2 < txt3.length) {
+    document.getElementById("dialogueText").innerHTML += txt3.charAt(i2);
+    i2++;
+    setTimeout(typeWriter3, speed);
+  }
+}
+function typeWriter4() {
+  if (i2 < txt4.length) {
+    document.getElementById("dialogueText").innerHTML += txt4.charAt(i2);
+    i2++;
+    setTimeout(typeWriter4, speed);
+    var canPickupPic01 = false;
+  }
+}
+function typeWriter5() {
+  if (i2 < txt5.length) {
+    document.getElementById("dialogueText").innerHTML += txt5.charAt(i2);
+    i2++;
+    setTimeout(typeWriter5, speed);
+    var canCheckFence = false;
+  }
+}
+
+
+var sound = new Howl({
+  src: ['inthesearchoflife.mp3'],
+  volume: 0.3,
+  loop: true
+});
+
+
+
+function playAudio(){
+
+if(musicStarted == false){
+  
+  sound.play();
+  
+  musicStarted = !musicStarted;
+
+}else{
+
+}
+
+ 
+}
+
+function quickSave(){
+  document.getElementById("quickSaveBtn").style.visibility = "visible";
+  document.getElementById("quickSaveBtn").style.opacity = "1.0";
+}
+
+   
+
+
+document.addEventListener('keydown', function(event) {
+
+
+  if (event.code == 'KeyZ') {
+    document.getElementById("dialogueText").innerHTML = "";
+document.getElementById("dialogue").style.visibility = "visible";
+document.getElementById("dialogueImage").style.visibility = "visible";
+typeWriter();
+}
+if (event.code == 'KeyX') {
+
+  document.getElementById("dialogueText").innerHTML = "";
+document.getElementById("dialogue").style.visibility = "hidden";
+document.getElementById("dialogueImage").style.visibility = "hidden";
+
+}
+if (event.keyCode == 27 && menuOpen == false) {
+  menuOpen = !menuOpen;
+
+  document.getElementById("exitBtn").style.visibility = "visible";
+ 
+}else{
+  menuOpen = !menuOpen;
+  document.getElementById("exitBtn").style.visibility = "hidden";
+ 
+}
+
+
+
+if (event.code == 'KeyE' && canEnterCabin == true ) {
+
+
+
+  document.getElementById("dialogueText").innerHTML = "";
+  i2=0;
+
+
+  document.getElementById("dialogue").style.visibility = "visible";
+document.getElementById("dialogueImage").style.visibility = "visible";
+ 
+document.getElementById("buttonSrc").style.visibility = "hidden";
+typeWriter2();
+firstGone = !firstGone;
+canMove = false;
+}
+if (event.code == 'Space' && firstGone == true) {
+  document.getElementById("dialogueText").innerHTML = "";
+  i2=0;
+
+
+  document.getElementById("dialogue").style.visibility = "visible";
+document.getElementById("dialogueImage").style.visibility = "visible";
+ 
+document.getElementById("buttonSrc").style.visibility = "hidden";
+typeWriter2a();
+firstGone = !firstGone;
+}
+
+
+if (event.code == 'KeyE' && canCheckLamp == true) {
+
+document.getElementById("dialogueText").innerHTML = "";
+i2=0;
+
+
+document.getElementById("dialogue").style.visibility = "visible";
+document.getElementById("dialogueImage").style.visibility = "visible";
+
+document.getElementById("buttonSrc").style.visibility = "hidden";
+typeWriter3();
+}
+if (event.code == 'KeyE' && canPickupPic01 == true) {
+
+i2= 0;
+  document.getElementById("dialogue").style.visibility = "visible";
+document.getElementById("dialogueImage").style.visibility = "visible";
+
+document.getElementById("buttonSrc").style.visibility = "hidden";
+
+document.getElementById("pic_one").setAttribute("visible", "false");
+document.getElementById("pic_01").setAttribute("src", "img/assets/01.png");
+typeWriter4();
+hasPic01 = true;
+
+}
+if (event.code == 'KeyE' && canCheckFence == true) {
+
+i2= 0;
+  document.getElementById("dialogue").style.visibility = "visible";
+document.getElementById("dialogueImage").style.visibility = "visible";
+
+document.getElementById("buttonSrc").style.visibility = "hidden";
+
+typeWriter5();
+}
+
+ //WASD MOVEMENT SCRIPT "HORIZONTAL AND VERTICAL" ONLY
+
+ if (event.code == 'KeyW') {
+
+  
+  document.getElementById("playerModel").setAttribute("animation-mixer", "");
+    var CurrentCameraX = document.getElementById("rig").getAttribute("position").x;
+var CurrentCameraY = document.getElementById("rig").getAttribute("position").y;
+var CurrentCameraZ = document.getElementById("rig").getAttribute("position").z;
+
+    var currentX = document.getElementById("playerModel").getAttribute("position").x;
+var currentY = document.getElementById("playerModel").getAttribute("position").y;
+var currentZ = document.getElementById("playerModel").getAttribute("position").z;
+
+    newZ = currentZ-=0.7;
+       newCameraZ = CurrentCameraZ-=0.7;
+
+  const zMovement = currentX.valueOf() + ", " + currentY.valueOf() + ", " + newZ.valueOf();
+  const zCameraMovement = CurrentCameraX.valueOf() + ", " + CurrentCameraY.valueOf() + ", " + newCameraZ.valueOf();
+
+  document.getElementById("playerModel").setAttribute('position', zMovement);
+
+ document.getElementById("rig").setAttribute('position', zCameraMovement);
+coordinates.innerHTML = "Coordenadas: " + currentX + ", "+ currentY + ", " + currentZ;
+document.getElementById("playerModel").setAttribute("rotation", "0, 180, 0");
+
+  }
+});
+
+document.addEventListener('keyup', function(event) {
+  if (event.code == 'KeyW') {
+
+document.getElementById("playerModel").removeAttribute("animation-mixer");
+
+  }
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.code == 'KeyS'  && canMoveDown == true) {
+    document.getElementById("playerModel").setAttribute("animation-mixer", "");
+    var CurrentCameraX = document.getElementById("rig").getAttribute("position").x;
+var CurrentCameraY = document.getElementById("rig").getAttribute("position").y;
+var CurrentCameraZ = document.getElementById("rig").getAttribute("position").z;
+
+    var currentX = document.getElementById("playerModel").getAttribute("position").x;
+var currentY = document.getElementById("playerModel").getAttribute("position").y;
+var currentZ = document.getElementById("playerModel").getAttribute("position").z;
+
+    newZ = currentZ+=0.7;
+    newCameraZ = CurrentCameraZ+=0.7;
+
+    const zMovement = currentX.valueOf() + ", " + currentY.valueOf() + ", " + newZ.valueOf();
+    const zCameraMovement = CurrentCameraX.valueOf() + ", " + CurrentCameraY.valueOf() + ", " + newCameraZ.valueOf();
+
+    document.getElementById("playerModel").setAttribute('position', zMovement);
+    document.getElementById("rig").setAttribute('position', zCameraMovement);
+    coordinates.innerHTML = "Coordenadas: " + currentX + ", "+ currentY + ", " + currentZ;
+    document.getElementById("playerModel").setAttribute("rotation", "0, 360, 0");
+  }
+});
+document.addEventListener('keyup', function(event) {
+  if (event.code == 'KeyS') {
+
+document.getElementById("playerModel").removeAttribute("animation-mixer");
+
+  }
+});
+
+
+document.addEventListener('keydown', function(event) {
+  if (event.code == 'KeyD') {
+    document.getElementById("playerModel").setAttribute("animation-mixer", "");
+    var CurrentCameraX = document.getElementById("rig").getAttribute("position").x;
+var CurrentCameraY = document.getElementById("rig").getAttribute("position").y;
+var CurrentCameraZ = document.getElementById("rig").getAttribute("position").z;
+
+    var currentX = document.getElementById("playerModel").getAttribute("position").x;
+var currentY = document.getElementById("playerModel").getAttribute("position").y;
+var currentZ = document.getElementById("playerModel").getAttribute("position").z;
+    newX = currentX+=0.7;
+    newCameraX = CurrentCameraX+=0.7;
+
+    const xMovement = newX.valueOf() + ", " + currentY.valueOf() + ", " + currentZ.valueOf();
+    const xCameraMovement = newCameraX.valueOf() + ", " + CurrentCameraY.valueOf() + ", " + CurrentCameraZ.valueOf();
+
+    document.getElementById("playerModel").setAttribute('position', xMovement);
+    document.getElementById("rig").setAttribute('position', xCameraMovement);
+    coordinates.innerHTML = "Coordenadas: " + currentX + ", "+ currentY + ", " + currentZ;
+    document.getElementById("playerModel").setAttribute("rotation", "0, 90, 0");
+  }
+});
+
+document.addEventListener('keyup', function(event) {
+  if (event.code == 'KeyD') {
+
+document.getElementById("playerModel").removeAttribute("animation-mixer");
+
+  }
+});
+
+
+
+document.addEventListener('keydown', function(event) {
+  if (event.code == 'KeyA' && canMoveLeft == true ) {
+    document.getElementById("playerModel").setAttribute("animation-mixer", "");
+var CurrentCameraX = document.getElementById("rig").getAttribute("position").x;
+var CurrentCameraY = document.getElementById("rig").getAttribute("position").y;
+var CurrentCameraZ = document.getElementById("rig").getAttribute("position").z;
+
+    var currentX = document.getElementById("playerModel").getAttribute("position").x;
+var currentY = document.getElementById("playerModel").getAttribute("position").y;
+var currentZ = document.getElementById("playerModel").getAttribute("position").z;
+
+    newX = currentX-= 0.7;
+   newCameraX = CurrentCameraX-= 0.7;
+
+
+    const xMovement = newX.valueOf() + ", " + currentY.valueOf() + ", " + currentZ.valueOf();
+    const xCameraMovement = newCameraX.valueOf() + ", " + CurrentCameraY.valueOf() + ", " + CurrentCameraZ.valueOf();
+
+
+    document.getElementById("playerModel").setAttribute('position', xMovement);
+ document.getElementById("rig").setAttribute('position', xCameraMovement);
+ document.getElementById("playerModel").setAttribute("rotation", "0, -90, 0");
+ coordinates.innerHTML = "Coordenadas: " + currentX + ", "+ currentY + ", " + currentZ;
+
+  }
+});
+document.addEventListener('keyup', function(event) {
+  if (event.code == 'KeyA') {
+
+document.getElementById("playerModel").removeAttribute("animation-mixer");
+
+  }
+});
+
+function returnMenu(){
+  window.open("index.html","_self")
+}
+
+
+
+
+</script>

@@ -1,0 +1,70 @@
+<html>
+<body onload="displaypage()" bgcolor="black">
+    <div class="fadeInDiv"></div>
+    <div class="fadeTwoDiv"></div>
+<center>
+    <img class="mainLogo"src="img/logo.png">
+</center>
+</body>
+
+
+</html>
+
+<style>
+
+    body {
+        overflow: hidden;
+    }
+    .mainLogo {
+        width: 60vw;
+        height: 80vh;
+    }
+    .fadeInDiv{
+  position: absolute;
+    z-index: 3;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    animation: fadeOut ease 2s;
+  animation-fill-mode: forwards;
+
+}
+.fadeTwoDiv{
+  position: absolute;
+    z-index: 3;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    animation: fadeIn ease 10s;
+   
+  animation-fill-mode: forwards;
+
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}
+</style>
+<script>
+function displaypage()
+{
+var t=setTimeout("displaydiv()",6000);//Number of seconds *1000, Currently its **3** seconds 
+}
+function displaydiv()
+{
+    window.open("index.html","_self")
+}    
+</script>
