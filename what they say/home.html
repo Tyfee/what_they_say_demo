@@ -1,0 +1,709 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="jquery-3.6.3.min.js"></script>
+    <script src="howler.js"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  </head>
+
+
+
+  <body onload="checkFor();" onclick="playAudio()">
+    <div class="fadeInDiv"></div>
+    <a id="coordinates" class="coordinates"></a>
+
+    <div id="courageContainer"class="courageContainer">
+    
+      <div id="courageLevel" class="courageLevel"></div>
+   
+    </div>
+    <div id="inputDiv"class="inputDiv">
+ 
+    <img id="buttonSrc" class="buttonSrc" src="img/e-key.png">
+
+    </div>
+
+    <div id="dialogue"class="dialogue">
+    
+      <a id="dialogueText" class="dialogueText"></a>
+   
+    </div>
+    <div id="dialogueImage"class="dialogueImage">
+    
+      <img id="dialogueSrc" class="dialogueSrc"></a>
+      <div class="nameBox"><center><a class="nameText"> G O D </a></center></div>
+    </div>
+    <div id="uiRight" class="uiRight">
+<button  onclick="showAlbum()" class="uiRightBtn">Album</button>
+<p><button onclick="showBackpack()" class="uiRightBtn">Backpack</button></p>
+<p><button   onclick="showMap();" class="uiRightBtn">Map</button></p>
+      </div>
+
+<!-- modals for menus and stuff-->
+
+<div id="albumBtn" class="modal">
+ <center>
+  <h1>Album</h1>
+
+  <p><div class="grid">
+<div class="albumRowOne">
+<img class="albumEntry" src="img/assets/01.png"> <img class="albumEntry" src="img/assets/02.png"> <img class="albumEntry" src="img/assets/03.png">
+
+</div>
+<p><div class="albumRowOne">
+  <img class="albumEntry" src=""> <img class="albumEntry" src=""> <img class="albumEntry"src="">
+</div>
+  <p><div class="albumRowOne">
+    <img class="albumEntry" src=""> <img class="albumEntry" src=""> <img class="albumEntry" src="">
+
+  </div>
+  </div></p>
+ </center>
+ 
+  </div>
+
+  <div  id="backpackBtn"class="modal">
+    <center>
+      <h1>Backpack</h1>
+     </center>
+ 
+    </div>
+
+    <div id="mapBtn"class="modal">
+ 
+      <center>
+        <h1>Map</h1>
+       </center>
+      </div>
+
+      <div id="exitBtn"class="modal">
+ 
+        <center>
+          <h1>PAUSE</h1>
+
+          <p><button class="uiBtn" id="returnMenu">RETURN TO MAIN MENU</button></p>
+         </center>
+        </div>
+  
+
+
+    <a-scene vr-mode-ui="enabled: false">
+    
+      <a-light type="ambient" color="orange"></a-light>
+
+        <a-entity id="rig" position="-4 12 14">
+            <a-entity id="camera" camera look-controls></a-entity>
+          </a-entity>
+          <a-assets>
+            <a-asset-item id="bed" src="https://raw.githubusercontent.com/Tyfee/3d/main/bed.glb"></a-asset-item>
+       
+            <a-asset-item id="player2" src="https://raw.githubusercontent.com/Tyfee/3d/main/scene.glb"></a-asset-item>
+            <a-asset-item id="door" src="https://raw.githubusercontent.com/Tyfee/3d/main/low-poly_door.glb"></a-asset-item>
+       
+       
+
+        </a-assets>
+
+      <a-plane color="#5C4033" position="0 0 -4" rotation="-90 0 0" width="40" height="40" color="#5C4033"></a-plane>
+      <a-plane color="#7BC8A4" position="0 0 -19" rotation="0 0 0" width="40" height="40" color="#7BC8A4"></a-plane>
+        <a-plane color="#7BC8A4" position="0 0 -10" rotation="-90 0 0" width="40" height="40" color="#7BC8A4"></a-plane>
+      <a-entity  rotation="0 90 0" position="-14 4 -14"  gltf-model="#bed"  scale ="2.4 2.4 2.4"></a-entity>
+      <a-entity id="doorModel" rotation="0 180 0" position="2 0 -19"  gltf-model="#door"  scale ="2.5 2.5 2.5"></a-entity>
+ <a-entity id="playerModel" rotation="0 90 0" position="-16 1 -10"  gltf-model="#player2"  scale ="2.5 2.5 2.5"></a-entity>
+
+
+
+      <a-sky color="#dba070"></a-sky>
+    </a-scene>
+  </body>
+</html>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
+
+@font-face {
+font-family: "Avenixel";
+src: url("fonts/MatrixSans-Regular.ttf");
+}
+
+h1{
+  font-size: xxx-large;
+    color: white;
+
+    font-family: 'Avenixel';
+}
+.coordinates {
+  color: yellow;
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  font-size: xx-large;
+}
+
+html{
+  cursor: url("img/cursor.png"), pointer;
+
+}
+
+.inputDiv{
+position: absolute;
+z-index: 3;
+width: 20%;
+height: 8vw;
+line-height: 8vw;
+vertical-align: center;
+left: 45vw;
+top: 80vh;
+}
+
+.buttonSrc{
+  width: 40%;
+height: 100%;
+border: 6px solid white;
+visibility: hidden;
+}
+
+
+.fadeInDiv{
+  position: absolute;
+    z-index: 3;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    animation: fadeOut ease 7s;
+  animation-fill-mode: forwards;
+
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+.modal{
+  position: absolute;
+  z-index: 3;
+  top: 10;
+  left: 10;
+  width: 94vw;
+  height: 90vh;
+  border: 5px solid white;
+  background-color: rgba(0, 0, 0, 0.514);
+  visibility: hidden;
+}
+  .dialogue {
+    position: absolute;
+    z-index: 3;
+    opacity: 0.9;
+    width: 80vw;
+    height: 27vh;
+    background-color: gray;
+    border-radius: 0%;
+    bottom: 15;
+    right: 15;
+visibility: hidden;
+  }
+
+  .dialogueText{
+    font-size: xxx-large;
+    color: white;
+   
+    font-weight: 800;
+    opacity: 1;
+    font-family: 'Avenixel';
+  }
+
+  .dialogueImage {
+    position: absolute;
+    z-index: 3;
+    opacity: 0.8;
+    width: 16vw;
+    height: 26vh;
+    background-color: rgba(128, 128, 128, 0);
+    border: 4px solid rgb(255, 255, 255);
+
+    bottom: 15;
+    left: 15;
+    visibility: hidden;
+  }
+
+.nameBox{
+  background-color: gray;
+  width: 100%;
+  height: 20%;
+  bottom: 0;
+  opacity: 0.9;
+}
+.nameText{
+  font-size: xxx-large;
+  color: white;
+  font-family: 'Avenixel';
+}
+
+
+
+  .uiRight {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    top: 0;
+    width: 5%;
+    height: 50%;
+    cursor: url("img/cursor.png"), pointer;
+  }
+
+  .uiRightBtn{
+    cursor: url("img/cursor.png"), pointer;
+    height: 17%;
+    width: 100%;
+    border: 3px solid white;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    right: 0;
+    border-radius: 100%;
+    cursor: url("img/cursor.png"), pointer;
+
+  }
+  .uiRightBtn:hover{
+ 
+    border: 3px solid black;
+    background-color: rgb(255, 255, 255);
+    color: black;
+   
+ 
+ 
+  }
+.courageContainer {
+  position: absolute;
+  z-index: 3;
+  width: 40%;
+  height: 3%;
+  border: 2px solid white;
+  top: 50;
+  left: 2;
+}
+.courageLevel {
+  background-color: red;
+  width: 50%;
+  height: 100%;
+}
+.albumRowOne{
+  width: 90%;
+  height: 30%;
+}
+.albumEntry {
+  width: 20%;
+  height: 100%;
+}
+.albumEntry:hover {
+  width: 30%;
+  height: 110%;
+}
+</style>
+<script>
+
+  // 6Gx9fNLik7X.Gea
+
+  const lang = localStorage.getItem("lang");
+
+
+var canMove = true;
+  var canEnterCabin = false;
+ var canCheckLamp = false;
+var albumShowing = false;
+var musicStarted = false;
+var backpackShowing = false;
+var mapShowing = false;
+var menuOpen = false;
+var txt = "";
+var txt2 = "";
+var txt3 = "";
+
+var coordinates = document.getElementById("coordinates");
+
+var i = 0;
+var i2 = 0;
+
+
+var speed = 10;
+
+function checkFor(){
+  const lang = localStorage.getItem("lang");
+  if(lang=="EN"){
+   txt = 'By the way, this is a dialogue test, to see if i can succesfully use a typewriter effect on displaying my text values! If youre seeing this, thats cool i guess!!!'; 
+txt2 = 'This is your beloved summer home! How many memories did you make here before even being aware of yourself?'; 
+txt2a = 'Would you like to enter?'; 
+txt3 = 'A street lamp... Does that mean a lot of people come here often? Is that a clue to something? '; 
+
+  }
+if(lang=="JA"){
+  txt = 'By the way, this is a dialogue test, to see if i can succesfully use a typewriter effect on displaying my text values! If youre seeing this, thats cool i guess!!!'; 
+ txt2 = 'これってあなたの大好の夏家だ。自分は自分ことを気ずつくまえに、いくつの思い出をここで作くったか'; 
+ txt2a = '入りたいですか'; 
+
+ txt3 = 'ストリートラソプか こんな埸所に来る人って多いかな 手がかりになるかなぁぁぁぁ';
+
+}
+if(lang=="PTBR"){
+  txt = 'By the way, this is a dialogue test, to see if i can succesfully use a typewriter effect on displaying my text values! If youre seeing this, thats cool i guess!!!'; 
+ txt2 = 'Essa é a sua amada casa de verão! Quantas memórias você fez aqui antes mesmo de saber que você existia?'; 
+ txt2a = 'Você gostaria de entrar?'; 
+
+ txt3 = 'Um poste de luz... Isso quer dizer que muita gente vem aqui? Seria isso uma pista?';
+
+}
+}
+
+
+document.onkeydown=function(e){
+
+var currentX = document.getElementById("playerModel").getAttribute("position").x;
+var currentY = document.getElementById("playerModel").getAttribute("position").y;
+var currentZ = document.getElementById("playerModel").getAttribute("position").z;
+
+
+if (currentX.valueOf() >= -18 && currentX.valueOf() <= -14) {
+
+
+document.getElementById("buttonSrc").style.visibility = "visible";
+canEnterCabin = true;
+
+}else if (currentX.valueOf() >= 89 && currentX.valueOf() <= 95) {
+  document.getElementById("buttonSrc").style.visibility = "visible";
+ canCheckLamp = true;
+}else if (currentX.valueOf() >= 18 && currentX.valueOf() <= 23) {
+  document.getElementById("buttonSrc").style.visibility = "visible";
+ canCheckLamp = true;
+}
+
+else{
+  document.getElementById("buttonSrc").style.visibility = "hidden";
+canEnterCabin = false;
+canCheckLamp = false;
+}
+
+
+
+if (currentZ.valueOf() >= 14) {
+
+canMove = false;
+
+}else{
+
+canMove = true;
+}
+
+}
+
+
+
+
+
+
+function showMap(){
+mapShowing = !mapShowing;
+
+if(mapShowing == true){
+  document.getElementById("albumBtn").style.visibility = "hidden";
+  document.getElementById("backpackBtn").style.visibility = "hidden";
+  document.getElementById("mapBtn").style.visibility = "visible";
+
+}else{
+  document.getElementById("mapBtn").style.visibility = "hidden";
+  document.getElementById("backpackBtn").style.visibility = "hidden";
+  document.getElementById("mapBtn").style.visibility = "hidden";
+}
+}
+function showBackpack(){
+  backpackShowing = !backpackShowing;
+
+  document.getElementById("albumBtn").style.visibility = "hidden";
+  document.getElementById("backpackBtn").style.visibility = "visible";
+  document.getElementById("mapBtn").style.visibility = "hidden";
+  if(backpackShowing == true){
+}else{
+
+  document.getElementById("albumBtn").style.visibility = "hidden";
+  document.getElementById("backpackBtn").style.visibility = "hidden";
+  document.getElementById("mapBtn").style.visibility = "hidden";
+}
+
+
+}
+function showAlbum(){
+  albumShowing = !albumShowing;
+
+
+
+    
+  if(albumShowing == true){
+  document.getElementById("albumBtn").style.visibility = "visible";
+  document.getElementById("backpackBtn").style.visibility = "hidden";
+  document.getElementById("mapBtn").style.visibility = "hidden";
+
+}else{
+  document.getElementById("albumBtn").style.visibility = "hidden";
+  document.getElementById("backpackBtn").style.visibility = "hidden";
+  document.getElementById("mapBtn").style.visibility = "hidden";
+}
+}
+
+
+
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("dialogueText").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+
+function typeWriter2() {
+  if (i2 < txt2.length) {
+    document.getElementById("dialogueText").innerHTML += txt2.charAt(i2);
+    i2++;
+    setTimeout(typeWriter2, speed);
+  
+  }
+}
+function typeWriter3() {
+  if (i2 < txt3.length) {
+    document.getElementById("dialogueText").innerHTML += txt3.charAt(i2);
+    i2++;
+    setTimeout(typeWriter3, speed);
+  }
+}
+
+
+
+var sound = new Howl({
+  src: ['inthesearchoflife.mp3'],
+  volume: 0.3,
+  loop: true
+});
+
+
+
+function playAudio(){
+
+if(musicStarted == false){
+  
+  sound.play();
+  
+  musicStarted = !musicStarted;
+
+}else{
+
+}
+
+ 
+}
+
+   
+
+
+document.addEventListener('keydown', function(event) {
+
+
+  if (event.code == 'KeyZ') {
+    document.getElementById("dialogueText").innerHTML = "";
+document.getElementById("dialogue").style.visibility = "visible";
+document.getElementById("dialogueImage").style.visibility = "visible";
+typeWriter();
+}
+if (event.code == 'KeyX') {
+
+  document.getElementById("dialogueText").innerHTML = "";
+document.getElementById("dialogue").style.visibility = "hidden";
+document.getElementById("dialogueImage").style.visibility = "hidden";
+
+}
+if (event.keyCode == 27 && menuOpen == false) {
+  menuOpen = !menuOpen;
+
+  document.getElementById("exitBtn").style.visibility = "visible";
+ 
+}else{
+  menuOpen = !menuOpen;
+  document.getElementById("exitBtn").style.visibility = "hidden";
+ 
+}
+
+
+
+if (event.code == 'KeyE' && canEnterCabin == true) {
+
+  document.getElementById("dialogueText").innerHTML = "";
+  i2=0;
+
+
+  document.getElementById("dialogue").style.visibility = "visible";
+document.getElementById("dialogueImage").style.visibility = "visible";
+ 
+document.getElementById("buttonSrc").style.visibility = "hidden";
+typeWriter2();
+}
+if (event.code == 'KeyE' && canCheckLamp == true) {
+
+document.getElementById("dialogueText").innerHTML = "";
+i2=0;
+
+
+document.getElementById("dialogue").style.visibility = "visible";
+document.getElementById("dialogueImage").style.visibility = "visible";
+
+document.getElementById("buttonSrc").style.visibility = "hidden";
+typeWriter3();
+}
+
+ //WASD MOVEMENT SCRIPT "HORIZONTAL AND VERTICAL" ONLY
+
+ if (event.code == 'KeyW') {
+
+  
+  document.getElementById("playerModel").setAttribute("animation-mixer", "");
+    var CurrentCameraX = document.getElementById("rig").getAttribute("position").x;
+var CurrentCameraY = document.getElementById("rig").getAttribute("position").y;
+var CurrentCameraZ = document.getElementById("rig").getAttribute("position").z;
+
+    var currentX = document.getElementById("playerModel").getAttribute("position").x;
+var currentY = document.getElementById("playerModel").getAttribute("position").y;
+var currentZ = document.getElementById("playerModel").getAttribute("position").z;
+
+    newZ = currentZ-=0.6;
+       newCameraZ = CurrentCameraZ-=0.6;
+
+  const zMovement = currentX.valueOf() + ", " + currentY.valueOf() + ", " + newZ.valueOf();
+  const zCameraMovement = CurrentCameraX.valueOf() + ", " + CurrentCameraY.valueOf() + ", " + newCameraZ.valueOf();
+
+  document.getElementById("playerModel").setAttribute('position', zMovement);
+
+coordinates.innerHTML = "Coordenadas: " + currentX + ", "+ currentY + ", " + currentZ;
+document.getElementById("playerModel").setAttribute("rotation", "0, 180, 0");
+
+  }
+});
+
+document.addEventListener('keyup', function(event) {
+  if (event.code == 'KeyW') {
+
+document.getElementById("playerModel").removeAttribute("animation-mixer");
+
+  }
+});
+
+document.addEventListener('keydown', function(event) {
+  if (event.code == 'KeyS'  && canMove == true) {
+    document.getElementById("playerModel").setAttribute("animation-mixer", "");
+    var CurrentCameraX = document.getElementById("rig").getAttribute("position").x;
+var CurrentCameraY = document.getElementById("rig").getAttribute("position").y;
+var CurrentCameraZ = document.getElementById("rig").getAttribute("position").z;
+
+    var currentX = document.getElementById("playerModel").getAttribute("position").x;
+var currentY = document.getElementById("playerModel").getAttribute("position").y;
+var currentZ = document.getElementById("playerModel").getAttribute("position").z;
+
+    newZ = currentZ+=0.6;
+    newCameraZ = CurrentCameraZ+=0.6;
+
+    const zMovement = currentX.valueOf() + ", " + currentY.valueOf() + ", " + newZ.valueOf();
+    const zCameraMovement = CurrentCameraX.valueOf() + ", " + CurrentCameraY.valueOf() + ", " + newCameraZ.valueOf();
+
+    document.getElementById("playerModel").setAttribute('position', zMovement);
+    coordinates.innerHTML = "Coordenadas: " + currentX + ", "+ currentY + ", " + currentZ;
+    document.getElementById("playerModel").setAttribute("rotation", "0, 360, 0");
+  }
+});
+document.addEventListener('keyup', function(event) {
+  if (event.code == 'KeyS') {
+
+document.getElementById("playerModel").removeAttribute("animation-mixer");
+
+  }
+});
+
+
+document.addEventListener('keydown', function(event) {
+  if (event.code == 'KeyD' ) {
+    document.getElementById("playerModel").setAttribute("animation-mixer", "");
+    var CurrentCameraX = document.getElementById("rig").getAttribute("position").x;
+var CurrentCameraY = document.getElementById("rig").getAttribute("position").y;
+var CurrentCameraZ = document.getElementById("rig").getAttribute("position").z;
+
+    var currentX = document.getElementById("playerModel").getAttribute("position").x;
+var currentY = document.getElementById("playerModel").getAttribute("position").y;
+var currentZ = document.getElementById("playerModel").getAttribute("position").z;
+    newX = currentX+=0.6;
+    newCameraX = CurrentCameraX+=0.6;
+
+    const xMovement = newX.valueOf() + ", " + currentY.valueOf() + ", " + currentZ.valueOf();
+    const xCameraMovement = newCameraX.valueOf() + ", " + CurrentCameraY.valueOf() + ", " + CurrentCameraZ.valueOf();
+
+    document.getElementById("playerModel").setAttribute('position', xMovement);
+       coordinates.innerHTML = "Coordenadas: " + currentX + ", "+ currentY + ", " + currentZ;
+    document.getElementById("playerModel").setAttribute("rotation", "0, 90, 0");
+  }
+});
+
+document.addEventListener('keyup', function(event) {
+  if (event.code == 'KeyD') {
+
+document.getElementById("playerModel").removeAttribute("animation-mixer");
+
+  }
+});
+
+
+
+document.addEventListener('keydown', function(event) {
+  if (event.code == 'KeyA' ) {
+    document.getElementById("playerModel").setAttribute("animation-mixer", "");
+var CurrentCameraX = document.getElementById("rig").getAttribute("position").x;
+var CurrentCameraY = document.getElementById("rig").getAttribute("position").y;
+var CurrentCameraZ = document.getElementById("rig").getAttribute("position").z;
+
+    var currentX = document.getElementById("playerModel").getAttribute("position").x;
+var currentY = document.getElementById("playerModel").getAttribute("position").y;
+var currentZ = document.getElementById("playerModel").getAttribute("position").z;
+
+    newX = currentX-= 0.6;
+   newCameraX = CurrentCameraX-= 0.6;
+
+
+    const xMovement = newX.valueOf() + ", " + currentY.valueOf() + ", " + currentZ.valueOf();
+    const xCameraMovement = newCameraX.valueOf() + ", " + CurrentCameraY.valueOf() + ", " + CurrentCameraZ.valueOf();
+
+
+    document.getElementById("playerModel").setAttribute('position', xMovement);
+  document.getElementById("playerModel").setAttribute("rotation", "0, -90, 0");
+ coordinates.innerHTML = "Coordenadas: " + currentX + ", "+ currentY + ", " + currentZ;
+
+  }
+});
+document.addEventListener('keyup', function(event) {
+  if (event.code == 'KeyA') {
+
+document.getElementById("playerModel").removeAttribute("animation-mixer");
+
+  }
+});
+
+
+
+
+
+
+</script>
